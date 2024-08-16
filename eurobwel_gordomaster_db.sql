@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 15, 2024 at 08:02 PM
+-- Generation Time: Aug 16, 2024 at 12:51 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -106,7 +106,7 @@ CREATE TABLE `tbl_settings` (
 --
 
 INSERT INTO `tbl_settings` (`id`, `app_name`, `name`, `time_limit`, `access`, `username`, `password`, `api_key`, `app_logo`, `fcm_server_key`, `user_otp`, `header_title`, `variable_link`, `variable_image`) VALUES
-(1, 'Gordo Master - Winner Club', 'Gordo Master', '2024-08-10 22:30:00', 0, 'Irfanmillion', 'admin86', 'apikeyapikey', 'images (7).png', '', '91847', 'Selected result number:', '29717', 'birthday_banner_balloons_9f6d430eb297253063db6d6780f357c1.png');
+(1, 'Gordo Master - Winner Club', 'Gordo Master', '2024-08-16 12:45:00', 1, 'Irfanmillion', 'admin86', 'apikeyapikey', 'images (7).png', '', '91847', 'Selected result number:', '29717', 'birthday_banner_balloons_9f6d430eb297253063db6d6780f357c1.png');
 
 -- --------------------------------------------------------
 
@@ -221,7 +221,8 @@ INSERT INTO `tbl_users` (`id`, `email`, `status`) VALUES
 (162, '1969005035', 1),
 (163, '1969005035', 1),
 (164, '1969005035', 1),
-(165, '1969005035', 1);
+(165, '1969005035', 1),
+(166, '1969005035', 1);
 
 -- --------------------------------------------------------
 
@@ -339,7 +340,7 @@ ALTER TABLE `tbl_settings`
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
 
 --
 -- AUTO_INCREMENT for table `user_otp`

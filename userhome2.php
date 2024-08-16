@@ -112,7 +112,7 @@
         <label>Password</label>
         <input type="password" name="password" placeholder="*******" required>
       </div>
-      <button type="submit">Go Next</button>
+      <button type="submit">Continue</button>
   </form>
   <?php //} ?>
 

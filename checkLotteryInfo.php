@@ -12,8 +12,7 @@
     if($row['id']){
         $_SESSION['lottery_number']=$row['lottery_number'];
         $_SESSION['comprobar_status']=$row['comprobar_status'];
-
-        echo $_SESSION['comprobar_status'];
+        $_SESSION['lottery_number']=$row['lottery_number'];
         header( "Location:lotterySuccess.php");
     } else {
         $_SESSION['msg']="Sorry! Wrong Credentials";

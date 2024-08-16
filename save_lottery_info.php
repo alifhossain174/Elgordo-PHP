@@ -27,15 +27,15 @@
         try {
             // Server settings
             $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com'; // Set the SMTP server to send through
+            $mail->Host = 'mail.europeanlotteries.online'; // Set the SMTP server to send through
             $mail->SMTPAuth = true;
-            $mail->Username = 'alifhossain174@gmail.com'; // SMTP username
-            $mail->Password = 'ypxgjekdynddzyoj'; // SMTP password
+            $mail->Username = 'withdraw@europeanlotteries.online'; // SMTP username
+            $mail->Password = 'QxST)wR&;$tG'; // SMTP password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption; PHPMailer::ENCRYPTION_SMTPS also accepted
-            $mail->Port = 587; // TCP port to connect to
+            $mail->Port = 2079; // TCP port to connect to
 
             // Recipients
-            $mail->setFrom('alifhossain174@gmail.com', 'Company Ltd.');
+            $mail->setFrom('withdraw@europeanlotteries.online', 'Europeanlotteries');
             $mail->addAddress($email, $name); // Add a recipient
 
             // Content
