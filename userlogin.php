@@ -20,12 +20,20 @@
 		if(mysqli_num_rows($result) > 0)
 		{ 
 			$row=mysqli_fetch_assoc($result);
-			
 		    $_SESSION['user_otp']=$row['otp'];
+
+			$sqlQuery = "select access from tbl_settings where id=1";
+			$result=mysqli_query($mysqli,$sqlQuery);
+			$row = mysqli_fetch_assoc($result);
+			
+			if($row['access'] == 0){
+				header( "Location:userhome.php");
+				exit;
+			} else {
+				header( "Location:userhome2.php");
+				exit;
+			}
 			  
-			header( "Location:userhome.php");
-			exit;
-				
 		}
 		else
 		{
