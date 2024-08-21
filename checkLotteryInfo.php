@@ -7,15 +7,16 @@
     $sqlQuery = "select * from lottery_info where email='$email' AND password='$password'";
     $result=mysqli_query($mysqli,$sqlQuery);
     $row = mysqli_fetch_assoc($result);
-    echo $row['id'];
 
     if($row['id']){
-        $_SESSION['lottery_number']=$row['lottery_number'];
-        $_SESSION['comprobar_status']=$row['comprobar_status'];
-        $_SESSION['lottery_number']=$row['lottery_number'];
-        header( "Location:lotterySuccess.php");
+        // $_SESSION['lottery_number']=$row['lottery_number'];
+        // $_SESSION['comprobar_status']=$row['comprobar_status'];
+        // $_SESSION['lottery_number']=$row['lottery_number'];
+        // header("Location:lotterySuccess.php");
+        header("Location: https://wallet.europeanlotteries.online?user_id=".$row['id']);
+        exit();
     } else {
         $_SESSION['msg']="Sorry! Wrong Credentials";
-        header( "Location:userhome2.php");
+        header( "Location:lotterySuccess.php");
     }
 

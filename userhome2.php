@@ -42,6 +42,18 @@
       left: 34%;
       text-align: center;
     }
+
+    #comprobar_btn a{
+      padding: 10px 25px;
+      background: #2c97c3;
+      color: white;
+      text-decoration: none;
+      margin-bottom: 20px;
+      font-size: 18px;
+      text-shadow: 1px 1px 2px black;
+      border-radius: 4px;
+      display: inline-block;
+    }
     .checkLotteryForm{
       width: 60%;
       margin: auto;
@@ -83,6 +95,30 @@
     @media only screen and (max-width: 600px) {
       .bg{
         width: 90%; 
+        height: 240px; 
+      }
+      .countdown{
+        padding: 2px 0px;
+        top: 36px;
+        font-size: 20px;
+      }
+      .checkLotteryForm{
+        width: 90%;
+        display: block !important;
+      }
+
+      .checkLotteryForm .form-group label{
+        display: block;
+        margin-bottom: 5px;
+        margin-top: 5px;
+      }
+      .checkLotteryForm .form-group input{
+        width: 95%;
+      }
+      .checkLotteryForm button{
+        padding: 5px 15px;
+        margin-top: 10px;
+        margin-left: 20px;
       }
     }
   </style>
@@ -101,20 +137,12 @@
   </div>
 
   <?php
-    // if(strtotime(date("Y-m-d H:i:s")) > strtotime($settings['time_limit'])){
+    if($settings['comprobar_status']){
   ?>
-  <form class="checkLotteryForm" id="checkLotteryForm" action="checkLotteryInfo.php" method="POST" enctype="multipart/form-data">
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" name="email" placeholder="email@sample.com" required>
-      </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" name="password" placeholder="*******" required>
-      </div>
-      <button type="submit">Continue</button>
-  </form>
-  <?php //} ?>
+    <div id="comprobar_btn" style="width: 100%; text-align:center; display: none">
+      <a href="lotterySuccess.php">Comprobar</a>
+    </div>
+  <?php } ?>
 
   <script>
     // Convert PHP date to JavaScript date
@@ -139,7 +167,11 @@
             document.getElementById("countdown").innerHTML = "EXPIRED";
             document.getElementById("countdown").style.color = "transparent";
 
-            document.getElementById("checkLotteryForm").style.display = "flex";
+            // document.getElementById("checkLotteryForm").style.display = "flex";
+            var element = document.getElementById("comprobar_btn");
+            if(element){
+              element.style.display = "block";
+            }
 
             // Set the background image after the countdown ends
             document.getElementById("countdown").style.backgroundImage = "url('result.gif')";

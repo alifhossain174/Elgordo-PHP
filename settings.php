@@ -21,6 +21,17 @@
     } else {
       $app_logo = $settings_row['app_logo'];
     }
+
+    if($_FILES['lottery_image']['name']!="")
+    {
+      unlink('images/'.$settings_row['lottery_image']);   
+      $lottery_image=$_FILES['lottery_image']['name'];
+      $pic1=$_FILES['lottery_image']['tmp_name'];
+      $tpath1='images/'.$lottery_image;      
+      copy($pic1,$tpath1);
+    } else {
+      $lottery_image = $settings_row['lottery_image'];
+    }
     
     
     if($_FILES['variable_image']['name']!="")
@@ -41,6 +52,8 @@
       'app_name' => $_POST['app_name'],
       'time_limit' => date("Y-m-d H:i:s", strtotime($_POST['time_limit'])),
       'access' => $_POST['access'],
+      'comprobar_status' => $_POST['comprobar_status'],
+      'lottery_image' => $lottery_image,
       'app_logo' => $app_logo,
       'variable_image' => $variable_image,
       'name' => $_POST['name'],
@@ -260,6 +273,16 @@
                         </div>
 
                         <div class="form-group row mb-4">
+                          <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Comprobar Status</label>
+                          <div class="col-sm-12 col-md-7">
+                            <select name="comprobar_status" class="form-control" required>
+                              <option value="1" <?= $settings_row['comprobar_status'] == 1 ? 'selected' : ''?>>Enable</option>
+                              <option value="0" <?= $settings_row['comprobar_status'] == 0 ? 'selected' : ''?>>Disable</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="form-group row mb-4">
                           <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">username</label>
                           <div class="col-sm-12 col-md-7">
                             <input class="form-control" type="text" name="username" id="username"
@@ -320,10 +343,6 @@
                           </div>
                         </div>
 
-
-
-
-
                         <div class="form-group row mb-4">
                           <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">App Icon</label>
                           <div class="col-sm-12 col-md-7">
@@ -341,6 +360,23 @@
                           </div>
                         </div>
 
+                        <div class="form-group row mb-4">
+                          <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Lottery Image</label>
+                          <div class="col-sm-12 col-md-7">
+                            <input class="form-control" type="file" name="lottery_image" value="fileupload" id="fileupload" />
+                          </div>
+                        </div>
+
+                        <?php if($settings_row['lottery_image']) {?>
+                        <div class="form-group row mb-4">
+                          <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Lottery Image Preview</label>
+                          <div class="col-sm-12 col-md-7">
+                            <img style="max-width: 60%; object-fit: cover;"
+                              src="images/<?php echo $settings_row['lottery_image'];?>" alt="">
+                          </div>
+                        </div>
+                        <?php } ?>
+
                         <div class="card-footer text-right">
                           <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
@@ -351,6 +387,7 @@
                         </div>
                         <?php } ?>
                         <?php } ?>
+                        
 
                       </fieldset>
                     </form>

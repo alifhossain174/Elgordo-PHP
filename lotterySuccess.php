@@ -2,7 +2,7 @@
     date_default_timezone_set('Asia/Dhaka');
     include("includes/connection.php");
     include("includes/session_check_user.php");
-    include("includes/data.php");
+  include("includes/data.php");
     require("alert/alert.php");
     $settings = getById("tbl_settings","1");
 ?>
@@ -22,45 +22,66 @@
       background-color: #f0f0f0;
     }
     .bg{
-      height: 547px; 
-      width: 60%; 
-      background: url('lotter_image.jpeg'); 
-      background-size: contain; 
-      background-repeat: no-repeat;
-      position: relative;
       margin: 10px auto;
-    }
-    .countdown{
-      width: 45%; 
-      padding: 15px 0px; 
-      background: #E0E9F8; 
-      color: #1e1e1e; 
-      font-size: 30px; 
-      font-weight: 600;
-      border-radius: 4px;
-      position: absolute;
-      top: 92px;
-      left: 34%;
       text-align: center;
     }
 
-    .button{
-        display: inline-block;
-        padding: 10px 25px;
-        margin-bottom: 20px;
-        background: skyblue;
-        border-radius: 4px;
-        border: none;
-        font-size: 16px;
-        font-weight: 600;
-        color: #1e1e1e;
-        box-shadow: 2px 2px 5px black;
-        cursor: pointer;
+    .checkLotteryForm{
+      width: 60%;
+      margin: auto;
+      display: flex;
+      border: 2px solid skyblue;
+      padding: 20px 0px;
+      background-color: white;
+      display: none;
+    }
+    .checkLotteryForm .form-group{
+      padding: 0px 20px;
+    }
+
+    .checkLotteryForm input{
+      padding: 5px;
+      font-size: 14px;
+      margin-right: 20px;
+    }
+
+    .checkLotteryForm button{
+      padding: 0px 15px;
+      background: green;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      font-weight: 600;
+      box-shadow: 2px 2px 5px black inset;
+      cursor: pointer;
+    }
+
+    .alert{
+      background: #900000;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-weight: 600;
     }
 
     @media only screen and (max-width: 600px) {
-      .bg{
-        width: 90%; 
+      .checkLotteryForm{
+        width: 90%;
+        display: block !important;
+      }
+
+      .checkLotteryForm .form-group label{
+        display: block;
+        margin-bottom: 5px;
+        margin-top: 5px;
+      }
+      .checkLotteryForm .form-group input{
+        width: 95%;
+      }
+      .checkLotteryForm button{
+        padding: 5px 15px;
+        margin-top: 10px;
+        margin-left: 20px;
       }
     }
   </style>
@@ -68,14 +89,32 @@
 
 <body>
     <div class="bg">
-        <div class="countdown" id="countdown"><?= isset($_SESSION['lottery_number']) ? $_SESSION['lottery_number'] : ''; ?> </div>
+      <img style="max-width: 60%; object-fit: cover;" src="images/<?php echo $settings['lottery_image'];?>" alt="">
     </div>
 
-    <div style="width: 100%; text-align:center">
-        <?php if(isset($_SESSION['comprobar_status']) && $_SESSION['comprobar_status'] == 1){ ?>
-            <a href="https://wallet.europeanlotteries.online?lotter_no=<?=$_SESSION['lottery_number'];?>" class="button">Comprobar</a>
-        <?php } ?>
-    </div>
+    <?php if(isset($_SESSION['msg'])){?>
+        <div class="alert alert-primary alert-dismissible" role="alert"> 
+            <?php echo $_SESSION['msg']; ?> 
+        </div>
+    <?php unset($_SESSION['msg']);}?>
+
+    <form class="checkLotteryForm" id="checkLotteryForm" action="checkLotteryInfo.php" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="email@sample.com" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password" placeholder="*******" required>
+        </div>
+        <button type="submit">Continue</button>
+    </form>
+
+    <!-- <div style="width: 100%; text-align:center">
+        <?php //if(isset($_SESSION['comprobar_status']) && $_SESSION['comprobar_status'] == 1){ ?>
+            <a href="https://wallet.europeanlotteries.online?lotter_no=<? //$_SESSION['lottery_number'];?>" class="button">Comprobar</a>
+        <?php //} ?>
+    </div> -->
 
 </body>
 

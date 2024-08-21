@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 16, 2024 at 12:51 PM
+-- Generation Time: Aug 21, 2024 at 08:11 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -29,21 +29,26 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `lottery_info` (
   `id` bigint(20) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `lottery_number` varchar(255) DEFAULT NULL,
   `balance` double DEFAULT NULL,
   `last_win` varchar(255) DEFAULT NULL,
-  `comprobar_status` tinyint(4) NOT NULL DEFAULT 0
+  `comprobar_status` tinyint(4) NOT NULL DEFAULT 0,
+  `attempts` double NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `lottery_info`
 --
 
-INSERT INTO `lottery_info` (`id`, `name`, `email`, `password`, `lottery_number`, `balance`, `last_win`, `comprobar_status`) VALUES
-(15, 'Sandra Logan', 'alifhossain174@gmail.com', '12345678', '211', 100, 'Maiores mollit excep', 1);
+INSERT INTO `lottery_info` (`id`, `image`, `name`, `email`, `password`, `lottery_number`, `balance`, `last_win`, `comprobar_status`, `attempts`) VALUES
+(15, NULL, 'Sandra Logan', 'alifhossain174@gmail.com', '12345678', '211', 100, 'Maiores mollit excep', 1, 0),
+(16, NULL, 'Charde Moran', 'alifhossain174@gmail.com', '12345678', '796', 49, 'Suscipit recusandae', 1, 0),
+(18, '', 'Fahim', 'alifhossain174@gmail.com', '123456789', '123123213', 123123, '123123', 0, 0),
+(19, '01969005035.jpg', 'asdasd', 'asdasd@asdsad.asd', '123123123', '123123', 123123, '123123', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -90,6 +95,8 @@ CREATE TABLE `tbl_settings` (
   `name` varchar(255) NOT NULL,
   `time_limit` varchar(255) DEFAULT NULL,
   `access` tinyint(4) NOT NULL DEFAULT 0,
+  `comprobar_status` tinyint(4) NOT NULL DEFAULT 1,
+  `lottery_image` varchar(255) DEFAULT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `api_key` varchar(255) NOT NULL,
@@ -105,8 +112,8 @@ CREATE TABLE `tbl_settings` (
 -- Dumping data for table `tbl_settings`
 --
 
-INSERT INTO `tbl_settings` (`id`, `app_name`, `name`, `time_limit`, `access`, `username`, `password`, `api_key`, `app_logo`, `fcm_server_key`, `user_otp`, `header_title`, `variable_link`, `variable_image`) VALUES
-(1, 'Gordo Master - Winner Club', 'Gordo Master', '2024-08-16 12:45:00', 1, 'Irfanmillion', 'admin86', 'apikeyapikey', 'images (7).png', '', '91847', 'Selected result number:', '29717', 'birthday_banner_balloons_9f6d430eb297253063db6d6780f357c1.png');
+INSERT INTO `tbl_settings` (`id`, `app_name`, `name`, `time_limit`, `access`, `comprobar_status`, `lottery_image`, `username`, `password`, `api_key`, `app_logo`, `fcm_server_key`, `user_otp`, `header_title`, `variable_link`, `variable_image`) VALUES
+(1, 'Gordo Master - Winner Club', 'Gordo Master', '2024-08-19 12:45:00', 1, 1, 'ifoTl1647664483.jpg', 'Irfanmillion', 'admin86', 'apikeyapikey', 'images (7).png', '', '91847', 'Selected result number:', '29717', 'birthday_banner_balloons_9f6d430eb297253063db6d6780f357c1.png');
 
 -- --------------------------------------------------------
 
@@ -222,7 +229,12 @@ INSERT INTO `tbl_users` (`id`, `email`, `status`) VALUES
 (163, '1969005035', 1),
 (164, '1969005035', 1),
 (165, '1969005035', 1),
-(166, '1969005035', 1);
+(166, '1969005035', 1),
+(167, '1969005035', 1),
+(168, '1969005035', 1),
+(169, '654987946546', 1),
+(170, 'dasdadasdas', 1),
+(171, 'alifhossain174@gmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -316,7 +328,7 @@ ALTER TABLE `user_otp`
 -- AUTO_INCREMENT for table `lottery_info`
 --
 ALTER TABLE `lottery_info`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `tbl_category`
@@ -340,7 +352,7 @@ ALTER TABLE `tbl_settings`
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=172;
 
 --
 -- AUTO_INCREMENT for table `user_otp`

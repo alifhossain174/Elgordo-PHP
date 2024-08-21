@@ -14,10 +14,20 @@
     $balance = filter_input(INPUT_POST, 'balance', FILTER_SANITIZE_STRING);
     $lastWin = filter_input(INPUT_POST, 'last_win', FILTER_SANITIZE_STRING);
     $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-    $comprobarStatus = filter_input(INPUT_POST, 'comprobar_status', FILTER_SANITIZE_STRING);
 
-    $sql = "INSERT INTO lottery_info (name, email, password, lottery_number, balance, last_win, comprobar_status)
-            VALUES ('$name', '$email', '$password', '$lotteryNumber', '$balance', '$lastWin', '$comprobarStatus')";
+    if($_FILES['image']['name']!="")
+    {
+      //unlink('images/'.$settings_row['app_logo']);   
+      $userImage = $_FILES['image']['name'];
+      $pic1 = $_FILES['image']['tmp_name'];
+      $tpath1 = 'images/'.$userImage;      
+      copy($pic1,$tpath1);
+    } else {
+        $userImage = null;
+    }
+
+    $sql = "INSERT INTO lottery_info (image, name, email, password, lottery_number, balance, last_win)
+            VALUES ('$userImage', '$name', '$email', '$password', '$lotteryNumber', '$balance', '$lastWin')";
 
     if (mysqli_query($mysqli, $sql)) {
         $_SESSION['msg']="Saved Successfully";
@@ -56,13 +66,12 @@
                     <li><strong>Lottery Number:</strong> $lotteryNumber</li>
                     <li><strong>Balance:</strong> $balance</li>
                     <li><strong>Last Win:</strong> $lastWin</li>
-                    <li><strong>Comprobar Status:</strong> " . ($comprobarStatus == 1 ? 'Enable' : 'Disable') . "</li>
                 </ul>
                 <p>Thank you,</p>
             </body>
             </html>";
 
-            $mail->send();
+            // $mail->send();
             $_SESSION['msg'] .= " | Email sent successfully.";
             header( "Location:lottery_info.php");
 

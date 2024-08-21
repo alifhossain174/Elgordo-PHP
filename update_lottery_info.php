@@ -15,16 +15,31 @@
     $balance = filter_input(INPUT_POST, 'balance', FILTER_SANITIZE_STRING);
     $lastWin = filter_input(INPUT_POST, 'last_win', FILTER_SANITIZE_STRING);
     $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-    $comprobarStatus = filter_input(INPUT_POST, 'comprobar_status', FILTER_SANITIZE_STRING);
+
+
+    $qry = "SELECT * FROM `lottery_info` WHERE id = $id";
+    $result = mysqli_query($mysqli, $qry);
+    $row = mysqli_fetch_assoc($result);
+
+    if($_FILES['image']['name']!="")
+    {
+      unlink('images/'.$row['image']);   
+      $userImage = $_FILES['image']['name'];
+      $pic1 = $_FILES['image']['tmp_name'];
+      $tpath1 = 'images/'.$userImage;      
+      copy($pic1,$tpath1);
+    } else {
+        $userImage = $row['image'];
+    }
 
     $sql = "UPDATE `lottery_info` SET 
+    `image` = '$userImage', 
     `name` = '$name', 
     `email` = '$email', 
     `password` = '$password', 
     `lottery_number` = '$lotteryNumber', 
     `balance` = '$balance', 
-    `last_win` = '$lastWin', 
-    `comprobar_status` = '$comprobarStatus'
+    `last_win` = '$lastWin'
     WHERE `id` = $id";
 
     if (mysqli_query($mysqli, $sql)) {
@@ -64,13 +79,12 @@
                     <li><strong>Lottery Number:</strong> $lotteryNumber</li>
                     <li><strong>Balance:</strong> $balance</li>
                     <li><strong>Last Win:</strong> $lastWin</li>
-                    <li><strong>Comprobar Status:</strong> " . ($comprobarStatus == 1 ? 'Enable' : 'Disable') . "</li>
                 </ul>
                 <p>Thank you,</p>
             </body>
             </html>";
 
-            $mail->send();
+            // $mail->send();
             $_SESSION['msg'] .= " | Email sent successfully.";
             header( "Location:lottery_info.php");
 

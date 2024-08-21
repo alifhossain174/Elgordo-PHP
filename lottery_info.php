@@ -154,13 +154,13 @@
                                 <thead>
                                     <tr>
                                         <th style="text-align:center">SL</th>
+                                        <th style="text-align:center">Image</th>
                                         <th style="text-align:center">Name</th>
                                         <th style="text-align:center">Email</th>
                                         <th style="text-align:center">Password</th>
                                         <th style="text-align:center">Lottery Number</th>
                                         <th style="text-align:center">Balance</th>
                                         <th style="text-align:center">Last Win</th>
-                                        <th style="text-align:center">Comprobar Status</th>
                                         <th style="text-align:center">Action</th>
                                     </tr>
                                 </thead>
@@ -172,13 +172,17 @@
                                     ?>
                                     <tr>
                                         <td style="text-align:center"><?= $sl++; ?></td>
+                                        <td style="text-align:center">
+                                            <?php if($row['image']){ ?>
+                                            <img style="width: 60px; object-fit: cover;" src="images/<?php echo $row['image'];?>" alt="">
+                                            <?php } ?>
+                                        </td>
                                         <td style="text-align:center"><?= htmlspecialchars($row['name']); ?></td>
                                         <td style="text-align:center"><?= htmlspecialchars($row['email']); ?></td>
                                         <td style="text-align:center"><?= htmlspecialchars($row['password']); ?></td>
                                         <td style="text-align:center"><?= htmlspecialchars($row['lottery_number']); ?></td>
                                         <td style="text-align:center"><?= htmlspecialchars($row['balance']); ?></td>
                                         <td style="text-align:center"><?= htmlspecialchars($row['last_win']); ?></td>
-                                        <td style="text-align:center"><?= $row['comprobar_status'] == 1 ? 'Enable' : 'Disable'; ?></td>
                                         <td style="text-align:center">
                                             <a href="?delete_id=<?= $row['id']; ?>" class="delete_btn" onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
                                             <a href="javascript:void(0)" class="editBtn" data-id="<?= $row['id']; ?>" data-name="<?= htmlspecialchars($row['name']); ?>" data-email="<?= htmlspecialchars($row['email']); ?>" data-password="<?= htmlspecialchars($row['password']); ?>" data-lottery_number="<?= htmlspecialchars($row['lottery_number']); ?>" data-balance="<?= htmlspecialchars($row['balance']); ?>" data-last_win="<?= htmlspecialchars($row['last_win']); ?>" data-comprobar_status="<?= $row['comprobar_status']; ?>">Edit</a>
@@ -203,7 +207,9 @@
 <div id="myModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <form class="lottery_submit_form" action="save_lottery_info.php" method="POST">
+        <form class="lottery_submit_form" action="save_lottery_info.php" method="POST" enctype="multipart/form-data">
+            <label>User Image</label>
+            <input type="file" name="image" required>
             <label>Full Name</label>
             <input type="text" name="name" required placeholder="Mr./Miss/Mrs.">
             <label>Email</label>
@@ -216,11 +222,6 @@
             <input type="number" name="balance">
             <label>Last Win</label>
             <input type="text" name="last_win">
-            <label>Comprobar Status</label>
-            <select name="comprobar_status" required>
-                <option value="1" selected>Enable</option>
-                <option value="0">Disable</option>
-            </select>
             <div style="text-align:right">
                 <button type="submit">Save</button>
             </div>
@@ -232,8 +233,10 @@
 <div id="editModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <form class="lottery_submit_form" action="update_lottery_info.php" method="POST">
+        <form class="lottery_submit_form" action="update_lottery_info.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="id" id="edit_id">
+            <label>Change Image</label>
+            <input type="file" name="image">
             <label>Full Name</label>
             <input type="text" name="name" id="edit_name" required>
             <label>Email</label>
@@ -246,11 +249,6 @@
             <input type="number" name="balance" id="edit_balance">
             <label>Last Win</label>
             <input type="text" name="last_win" id="edit_last_win">
-            <label>Comprobar Status</label>
-            <select name="comprobar_status" id="edit_comprobar_status" required>
-                <option value="1">Enable</option>
-                <option value="0">Disable</option>
-            </select>
             <div style="text-align:right">
                 <button type="submit">Update</button>
             </div>
@@ -287,7 +285,6 @@
             var lottery_number = this.getAttribute("data-lottery_number");
             var balance = this.getAttribute("data-balance");
             var last_win = this.getAttribute("data-last_win");
-            var comprobar_status = this.getAttribute("data-comprobar_status");
 
             document.getElementById("edit_id").value = id;
             document.getElementById("edit_name").value = name;
@@ -296,7 +293,6 @@
             document.getElementById("edit_lottery_number").value = lottery_number;
             document.getElementById("edit_balance").value = balance;
             document.getElementById("edit_last_win").value = last_win;
-            document.getElementById("edit_comprobar_status").value = comprobar_status;
 
             editModal.style.display = "block";
         }
