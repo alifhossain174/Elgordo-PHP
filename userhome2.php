@@ -21,70 +21,50 @@
       padding: 0;
       background-color: #f0f0f0;
     }
-    .bg{
-      height: 547px; 
-      width: 60%; 
-      background: url('lotter_image.jpeg'); 
-      background-size: contain; 
-      background-repeat: no-repeat;
+
+    .bg {
       position: relative;
       margin: 10px auto;
+      width: 90%;
+      /* Default width for small screens */
+      max-width: 600px;
+      /* Restrict maximum width */
     }
-    .countdown{
-      width: 45%; 
-      padding: 15px 0px; 
-      background: black; 
-      color: white; 
-      font-size: 28px; 
+
+    .bg img {
+      width: 100%;
+      height: auto;
+      /* Maintain aspect ratio */
+    }
+
+    .countdown {
+      width: 45%;
+      max-width: 300px;
+      padding: 5px 0;
+      background: black;
+      color: white;
+      font-size: 18px;
       border-radius: 4px;
       position: absolute;
-      top: 92px;
-      left: 34%;
+      top: 15%;
+      left: 56%;
+      transform: translateX(-50%);
       text-align: center;
     }
 
-    #comprobar_btn a{
-      padding: 10px 25px;
+    #comprobar_btn a {
+      padding: 10px 20px;
       background: #2c97c3;
       color: white;
       text-decoration: none;
-      margin-bottom: 20px;
-      font-size: 18px;
+      font-size: 16px;
       text-shadow: 1px 1px 2px black;
       border-radius: 4px;
       display: inline-block;
-    }
-    .checkLotteryForm{
-      width: 60%;
-      margin: auto;
-      display: flex;
-      border: 2px solid skyblue;
-      padding: 20px 0px;
-      background-color: white;
-      display: none;
-    }
-    .checkLotteryForm .form-group{
-      padding: 0px 20px;
+      margin-bottom: 20px;
     }
 
-    .checkLotteryForm input{
-      padding: 5px;
-      font-size: 14px;
-      margin-right: 20px;
-    }
-
-    .checkLotteryForm button{
-      padding: 0px 15px;
-      background: green;
-      border: none;
-      border-radius: 4px;
-      color: white;
-      font-weight: 600;
-      box-shadow: 2px 2px 5px black inset;
-      cursor: pointer;
-    }
-
-    .alert{
+    .alert {
       background: #900000;
       color: white;
       padding: 15px;
@@ -92,33 +72,39 @@
       font-weight: 600;
     }
 
-    @media only screen and (max-width: 600px) {
-      .bg{
-        width: 90%; 
-        height: 240px; 
+    /* Medium Devices (Tablets, 768px and up) */
+    @media (min-width: 768px) {
+      .countdown {
+        font-size: 24px;
+        padding: 15px 0;
       }
-      .countdown{
-        padding: 2px 0px;
-        top: 36px;
-        font-size: 20px;
-      }
-      .checkLotteryForm{
-        width: 90%;
-        display: block !important;
-      }
+    }
 
-      .checkLotteryForm .form-group label{
-        display: block;
-        margin-bottom: 5px;
-        margin-top: 5px;
+    /* Large Devices (Desktops, 992px and up) */
+    @media (min-width: 992px) {
+      .bg {
+        width: 70%;
+        max-width: 800px;
       }
-      .checkLotteryForm .form-group input{
-        width: 95%;
+      .countdown {
+        font-size: 28px;
+        width: 60%;
+        max-width: 400px;
+        top: 15%;
       }
-      .checkLotteryForm button{
-        padding: 5px 15px;
-        margin-top: 10px;
-        margin-left: 20px;
+    }
+
+    /* Extra Large Devices (Large Desktops, 1200px and up) */
+    @media (min-width: 1200px) {
+      .bg {
+        width: 60%;
+        height: auto; /* Adjust height if needed */
+      }
+      .countdown {
+        font-size: 32px;
+        width: 45%;
+        max-width: 500px;
+        top: 16%;
       }
     }
   </style>
@@ -127,21 +113,22 @@
 <body>
 
   <?php if(isset($_SESSION['msg'])){?>
-      <div class="alert alert-primary alert-dismissible" role="alert"> 
-          <?php echo $_SESSION['msg']; ?> 
-      </div>
+  <div class="alert alert-primary alert-dismissible" role="alert">
+    <?php echo $_SESSION['msg']; ?>
+  </div>
   <?php unset($_SESSION['msg']);}?>
 
   <div class="bg">
+    <img src="lotter_image.jpeg" style="width: 100%;">
     <div class="countdown" id="countdown">Loading...</div>
   </div>
 
   <?php
     if($settings['comprobar_status']){
   ?>
-    <div id="comprobar_btn" style="width: 100%; text-align:center; display: none">
-      <a href="lotterySuccess.php">Comprobar</a>
-    </div>
+  <div id="comprobar_btn" style="width: 100%; text-align:center; display: none">
+    <a href="lotterySuccess.php">Comprobar</a>
+  </div>
   <?php } ?>
 
   <script>
@@ -149,36 +136,36 @@
     var targetDate = new Date("<?php echo $settings['time_limit']; ?>").getTime();
 
     function updateCountdown() {
-        var now = new Date().getTime();
-        var distance = targetDate - now;
+      var now = new Date().getTime();
+      var distance = targetDate - now;
 
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        document.getElementById("countdown").innerHTML =
-            days + "d " + hours + "h " +
-            minutes + "m " + seconds + "s ";
+      document.getElementById("countdown").innerHTML =
+        days + "d " + hours + "h " +
+        minutes + "m " + seconds + "s ";
 
-        // If the countdown is finished
-        if (distance < 0) {
-            clearInterval(x);
-            document.getElementById("countdown").innerHTML = "EXPIRED";
-            document.getElementById("countdown").style.color = "transparent";
+      // If the countdown is finished
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("countdown").innerHTML = "EXPIRED";
+        document.getElementById("countdown").style.color = "transparent";
 
-            // document.getElementById("checkLotteryForm").style.display = "flex";
-            var element = document.getElementById("comprobar_btn");
-            if(element){
-              element.style.display = "block";
-            }
-
-            // Set the background image after the countdown ends
-            document.getElementById("countdown").style.backgroundImage = "url('result.gif')";
-            document.getElementById("countdown").style.backgroundSize = "contain";
-            document.getElementById("countdown").style.backgroundRepeat = "no-repeat";
-            document.getElementById("countdown").style.backgroundPosition = "center";
+        // document.getElementById("checkLotteryForm").style.display = "flex";
+        var element = document.getElementById("comprobar_btn");
+        if (element) {
+          element.style.display = "block";
         }
+
+        // Set the background image after the countdown ends
+        document.getElementById("countdown").style.backgroundImage = "url('result.gif')";
+        document.getElementById("countdown").style.backgroundSize = "contain";
+        document.getElementById("countdown").style.backgroundRepeat = "no-repeat";
+        document.getElementById("countdown").style.backgroundPosition = "center";
+      }
     }
 
     // Update the countdown every 1 second

@@ -33,7 +33,6 @@
       border: 2px solid skyblue;
       padding: 20px 0px;
       background-color: white;
-      display: none;
     }
     .checkLotteryForm .form-group{
       padding: 0px 20px;
@@ -109,12 +108,6 @@
         </div>
         <button type="submit">Continue</button>
     </form>
-
-    <!-- <div style="width: 100%; text-align:center">
-        <?php //if(isset($_SESSION['comprobar_status']) && $_SESSION['comprobar_status'] == 1){ ?>
-            <a href="https://wallet.europeanlotteries.online?lotter_no=<? //$_SESSION['lottery_number'];?>" class="button">Comprobar</a>
-        <?php //} ?>
-    </div> -->
 
 </body>
 
