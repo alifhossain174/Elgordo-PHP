@@ -209,7 +209,7 @@
         <span class="close">&times;</span>
         <form class="lottery_submit_form" action="save_lottery_info.php" method="POST" enctype="multipart/form-data">
             <label>User Image</label>
-            <input type="file" name="image" required>
+            <input type="file" name="image">
             <label>Full Name</label>
             <input type="text" name="name" required placeholder="Mr./Miss/Mrs.">
             <label>Email</label>
