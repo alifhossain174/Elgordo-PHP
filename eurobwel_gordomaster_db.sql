@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 21, 2024 at 08:11 AM
+-- Generation Time: Aug 21, 2024 at 08:18 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -33,6 +33,7 @@ CREATE TABLE `lottery_info` (
   `name` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
+  `pin` varchar(255) DEFAULT NULL COMMENT 'From wallet',
   `lottery_number` varchar(255) DEFAULT NULL,
   `balance` double DEFAULT NULL,
   `last_win` varchar(255) DEFAULT NULL,
@@ -44,11 +45,11 @@ CREATE TABLE `lottery_info` (
 -- Dumping data for table `lottery_info`
 --
 
-INSERT INTO `lottery_info` (`id`, `image`, `name`, `email`, `password`, `lottery_number`, `balance`, `last_win`, `comprobar_status`, `attempts`) VALUES
-(15, NULL, 'Sandra Logan', 'alifhossain174@gmail.com', '12345678', '211', 100, 'Maiores mollit excep', 1, 0),
-(16, NULL, 'Charde Moran', 'alifhossain174@gmail.com', '12345678', '796', 49, 'Suscipit recusandae', 1, 0),
-(18, '', 'Fahim', 'alifhossain174@gmail.com', '123456789', '123123213', 123123, '123123', 0, 0),
-(19, '01969005035.jpg', 'asdasd', 'asdasd@asdsad.asd', '123123123', '123123', 123123, '123123', 0, 0);
+INSERT INTO `lottery_info` (`id`, `image`, `name`, `email`, `password`, `pin`, `lottery_number`, `balance`, `last_win`, `comprobar_status`, `attempts`) VALUES
+(15, NULL, 'Sandra Logan', 'alifhossain174@gmail.com', '12345678', NULL, '211', 100, 'Maiores mollit excep', 1, 0),
+(16, NULL, 'Charde Moran', 'alifhossain174@gmail.com', '12345678', NULL, '796', 49, 'Suscipit recusandae', 1, 0),
+(18, '', 'Fahim', 'alifhossain174@gmail.com', '123456789', NULL, '123123213', 123123, '123123', 0, 0),
+(19, '01969005035.jpg', 'asdasd', 'asdasd@asdsad.asd', '123123123', NULL, '123123', 123123, '123123', 0, 0);
 
 -- --------------------------------------------------------
 
